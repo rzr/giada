@@ -1,0 +1,14 @@
+Description: Remove text "Output", in JACK the port appears IN/OUT.
+Author: Jof Thibaut <tangostudio@tuxfamily.org>
+
+--- giada-0.8.0.orig/src/kernelMidi.cpp
++++ giada-0.8.0/src/kernelMidi.cpp
+@@ -93,7 +93,7 @@ void setApi(int _api) {
+ int openOutDevice(int port) {
+ 
+ 	try {
+-		midiOut = new RtMidiOut((RtMidi::Api) api, "Giada MIDI Output");
++		midiOut = new RtMidiOut((RtMidi::Api) api, "Giada MIDI");
+ 		G_midiStatus = true;
+   }
+   catch (RtError &error) {

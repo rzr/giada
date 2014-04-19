@@ -1,0 +1,44 @@
+giada (0.8.2-0tstudio1) wheezy; urgency=low
+
+  * New upstream release.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Wed, 15 Jan 2014 09:02:47 +0100
+
+giada (0.8.1-0tstudio1) wheezy; urgency=low
+
+  * New upstream release.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Wed, 08 Jan 2014 21:53:09 +0100
+
+giada (0.8.0-0tstudio1) wheezy; urgency=low
+
+  * New upstream release.
+    + Initial MIDI input support.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Tue, 05 Nov 2013 09:39:01 +0100
+
+giada (0.7.3-0tstudio1) wheezy; urgency=low
+
+  * New upstream release.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Wed, 18 Sep 2013 10:34:01 +0200
+
+giada (0.7.2-0tstudio1) wheezy; urgency=low
+
+  * New upstream release.
+    + Initial MIDI output support.
+  * Remove 01-fix_gcc4.7.patch, applied upstream.
+  * Refresh 00-no_pulse_audio.patch.
+  * debian/patches:
+    + 00-rtmidi_source.patch, add rtmidi 2.0.1 source code.
+    + 01-rtmidi_static.patch, build giada with static rtmidi lib.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Sun, 28 Jul 2013 14:41:28 +0200
+
+giada (0.7.1-0tstudio1) wheezy; urgency=low
+
+  * Initial release.
+  * Fix FTBFS with gcc 4.7 by fixing missing <unistd.h> include.
+  * Drop pulseaudio support.
+
+ -- Jof Thibaut <tangostudio@tuxfamily.org>  Fri, 28 Jun 2013 12:58:58 +0200

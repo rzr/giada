@@ -1,0 +1,6 @@
+?package(giada):\
+ needs="X11"\
+ section="Applications/Audio"\
+ title="Giada"\
+ command="/usr/bin/giada"\
+ icon="/usr/share/pixmaps/giada32x32.xpm"

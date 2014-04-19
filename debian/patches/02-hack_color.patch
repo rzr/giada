@@ -1,0 +1,27 @@
+Description: Change color of VU meters.
+Author: Jof Thibaut <tangostudio@tuxfamily.org>
+Forwarded: no
+
+--- giada-0.7.1.orig/src/const.h
++++ giada-0.7.1/src/const.h
+@@ -50,7 +50,8 @@
+ #define GUI_HEIGHT			510
+ 
+ #define COLOR_BD_0     fl_rgb_color(78,  78,  78)			
+-#define COLOR_BD_1     fl_rgb_color(188, 188, 188)    
++#define COLOR_BD_1     fl_rgb_color(188, 188, 188)
++#define COLOR_BD_2     fl_rgb_color(138, 226, 52)    
+ #define COLOR_BG_0     fl_rgb_color(37,  37,  37)     
+ #define COLOR_BG_1     fl_rgb_color(78,  78,  78)     
+ #define COLOR_BG_2     fl_rgb_color(177, 142, 142)    
+--- giada-0.7.1.orig/src/ge_mixed.cpp
++++ giada-0.7.1/src/ge_mixed.cpp
+@@ -330,7 +330,7 @@ void gSoundMeter::draw() {
+ 		px_level = w();
+ 
+ 	fl_rectf(x()+1, y()+1, w()-2, h()-2, COLOR_BG_0);
+-	fl_rectf(x()+1, y()+1, (int) px_level, h()-2, clip || !G_audio_status ? COLOR_ALERT : COLOR_BD_0);
++	fl_rectf(x()+1, y()+1, (int) px_level, h()-2, clip || !G_audio_status ? COLOR_ALERT : COLOR_BD_2);
+ }
+ 
+ 

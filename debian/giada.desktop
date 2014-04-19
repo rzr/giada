@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Giada
+GenericName=Giada
+Comment=Audio tool for DJs and live performers
+Icon=giada32x32
+Exec=giada
+Terminal=false
+Categories=AudioVideo;Audio
