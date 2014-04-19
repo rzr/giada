@@ -1,0 +1,83 @@
+Description: Build static rtmidi and build giada with it.
+Author: Jof Thibaut <tangostudio@tuxfamily.org>
+
+--- giada-0.7.2.orig/configure.ac
++++ giada-0.7.2/configure.ac
+@@ -89,14 +89,6 @@ AC_LANG_POP
+ 
+ AC_LANG_PUSH([C++])
+ AC_CHECK_HEADER(
+-	[RtMidi.h],
+-	[],
+-	[AC_MSG_ERROR([library 'rtMidi' not found!])]
+-)
+-AC_LANG_POP
+-
+-AC_LANG_PUSH([C++])
+-AC_CHECK_HEADER(
+ 	[sndfile.h],
+ 	[],
+ 	[AC_MSG_ERROR([library 'libsndfile' not found!])]
+--- giada-0.7.2.orig/src/Makefile.am
++++ giada-0.7.2/src/Makefile.am
+@@ -47,7 +47,7 @@ gd_midiSetup.h     gd_midiSetup.cpp
+ if LINUX
+ giada_LDADD = -lsndfile -lfltk -lXext -lX11 -lXft -lXpm -lm  \
+ 							rtaudio/librtaudio.a -ljack -lasound -lpthread -ldl \
+-							-lsamplerate -lrtmidi
++							-lsamplerate rtmidi/librtmidi.a
+ endif
+ if WINDOWS
+ giada_LDADD   = -lole32 rtaudio/librtaudio.a -ldsound -lwinmm -lwsock32 \
+@@ -82,6 +82,9 @@ if LINUX
+ 	@cd rtaudio; echo "Building RtAudio for Linux..."; \
+ 	./configure --with-jack --with-alsa; \
+ 	make;
++	@cd rtmidi; echo "Building RtMidi for Linux..."; \
++	./configure --with-jack --with-alsa; \
++	make;
+ endif
+ if WINDOWS
+ 	@cd rtaudio; echo "Building RtAudio for Windows..."; \
+--- giada-0.7.2.orig/src/kernelMidi.h
++++ giada-0.7.2/src/kernelMidi.h
+@@ -32,7 +32,7 @@
+ 
+ 
+ #include <stdint.h>
+-#include <RtMidi.h>
++#include <rtmidi/RtMidi.h>
+ #include "channel.h"
+ 
+ 
+--- giada-0.7.2.orig/src/rtmidi/Makefile.in
++++ giada-0.7.2/src/rtmidi/Makefile.in
+@@ -6,6 +6,7 @@ LN = /bin/ln
+ 
+ OBJECTS	= RtMidi.o
+ 
++STATIC = librtmidi.a
+ SHARED = @sharedlib@
+ RELEASE = 2.0.1
+ MAJOR = 1
+@@ -24,6 +25,8 @@ check:
+ 	cd tests && $(MAKE) all
+ 
+ $(LIBRARIES): $(OBJECTS)
++	$(AR) ruv $(STATIC) $(OBJECTS)
++	ranlib $(STATIC)
+ 	$(CC) -fPIC @libflags@ $(OBJECTS) @LIBS@
+ 	$(LN) -s @sharedname@.$(RELEASE) $(SHARED)
+ 	$(LN) -s @sharedname@.$(RELEASE) $(SHARED).$(MAJOR)
+
+--- giada-0.7.2.orig/src/gd_about.cpp
++++ giada-0.7.2/src/gd_about.cpp
+@@ -68,7 +68,7 @@ gdAbout::gdAbout()
+ 	  "Version " VERSIONE " (" __DATE__ ")\n\n"
+ 		"Developed by Monocasual\n"
+ 		"Based on FLTK (%d.%d.%d), RtAudio (%s),\n"
+-		"RtMidi, libsamplerate and libsndfile\n\n"
++		"RtMidi (2.0.1), libsamplerate and libsndfile\n\n"
+ 		"Released under the terms of the GNU General\n"
+ 		"Public License (GPL v3)\n\n"
+ 		"News, infos, contacts and documentation:\n"

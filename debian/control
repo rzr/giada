@@ -1,0 +1,41 @@
+Source: giada
+Section: sound
+Priority: extra
+Maintainer: Jof Thibaut <tangostudio@tuxfamily.org>
+Build-Depends: debhelper (>= 9),
+               dh-autoreconf,
+               libasound2-dev,
+               libfltk1.3-dev,
+               libjack-jackd2-dev | libjack-dev,
+               libsamplerate-dev,
+               libsndfile1-dev,
+               libxext-dev,
+               libxft-dev,
+               libxpm-dev
+Standards-Version: 3.9.4
+Homepage: http://www.giadamusic.com/
+#Vcs-Git: git://git.debian.org/collab-maint/giada.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/giada.git;a=summary
+
+Package: giada
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         jackd
+Description: Audio tool for DJs and live performers
+ Load or record up to 32 samples or MIDI events, choose to play
+ them in single mode (drum machine) or loop mode (sequencer) and
+ start the show with your computer keyboard as a controller.
+
+Package: giada-dbg
+Section: debug
+Priority: extra
+Architecture: any
+Depends: giada (= ${binary:Version}),
+         ${misc:Depends}
+Description: Debugging symbols for Giada
+ Load or record up to 32 samples or MIDI events, choose to play
+ them in single mode (drum machine) or loop mode (sequencer) and
+ start the show with your computer keyboard as a controller.
+ .
+ This package contains the debugging symbols.

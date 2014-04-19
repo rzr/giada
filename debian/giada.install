@@ -1,0 +1,3 @@
+usr
+debian/giada.desktop  usr/share/applications
+debian/giada32x32.xpm usr/share/pixmaps

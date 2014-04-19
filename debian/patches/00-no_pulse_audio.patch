@@ -1,0 +1,71 @@
+Description: Disable pulseaudio support, use only ALSA and JACK.
+Author: Jof Thibaut <tangostudio@tuxfamily.org>
+Forwarded: no
+
+Index: giada-0.7.2/src/Makefile.am
+===================================================================
+--- giada-0.7.2.orig/src/Makefile.am	2013-07-26 18:25:43.000000000 +0200
++++ giada-0.7.2/src/Makefile.am	2013-07-28 14:33:57.000000000 +0200
+@@ -47,7 +47,7 @@
+ if LINUX
+ giada_LDADD = -lsndfile -lfltk -lXext -lX11 -lXft -lXpm -lm  \
+ 							rtaudio/librtaudio.a -ljack -lasound -lpthread -ldl \
+-							-lpulse-simple -lpulse -lsamplerate -lrtmidi
++							-lsamplerate -lrtmidi
+ endif
+ if WINDOWS
+ giada_LDADD   = -lole32 rtaudio/librtaudio.a -ldsound -lwinmm -lwsock32 \
+@@ -80,7 +80,7 @@
+ libs:
+ if LINUX
+ 	@cd rtaudio; echo "Building RtAudio for Linux..."; \
+-	./configure --with-jack --with-alsa --with-pulse; \
++	./configure --with-jack --with-alsa; \
+ 	make;
+ endif
+ if WINDOWS
+Index: giada-0.7.2/src/gd_config.cpp
+===================================================================
+--- giada-0.7.2.orig/src/gd_config.cpp	2013-07-26 18:25:42.000000000 +0200
++++ giada-0.7.2/src/gd_config.cpp	2013-07-28 14:33:57.000000000 +0200
+@@ -69,8 +69,6 @@
+ 		soundsys->add("ALSA");
+ 	if (kernelAudio::hasAPI(RtAudio::UNIX_JACK))
+ 		soundsys->add("Jack");
+-	if (kernelAudio::hasAPI(RtAudio::LINUX_PULSE))
+-		soundsys->add("PulseAudio");
+ 
+ 	switch (G_Conf.soundSystem) {
+ 		case SYS_API_ALSA:
+@@ -81,9 +79,6 @@
+ 			buffersize->deactivate();
+ 			samplerate->deactivate();
+ 			break;
+-		case SYS_API_PULSE:
+-			soundsys->show("PulseAudio");
+-			break;
+ 	}
+ 	soundsysInitValue = soundsys->value();
+ 
+@@ -407,7 +402,6 @@
+ #ifdef __linux__
+ 	if      (soundsys->value() == 0)	G_Conf.soundSystem = SYS_API_ALSA;
+ 	else if (soundsys->value() == 1)	G_Conf.soundSystem = SYS_API_JACK;
+-	else if (soundsys->value() == 2)	G_Conf.soundSystem = SYS_API_PULSE;
+ #else
+ #ifdef _WIN32
+ 	if 			(soundsys->value() == 0)	G_Conf.soundSystem = SYS_API_DS;
+Index: giada-0.7.2/src/kernelAudio.cpp
+===================================================================
+--- giada-0.7.2.orig/src/kernelAudio.cpp	2013-07-26 18:25:43.000000000 +0200
++++ giada-0.7.2/src/kernelAudio.cpp	2013-07-28 14:33:57.000000000 +0200
+@@ -64,9 +64,6 @@
+ 	else
+ 	if (api == SYS_API_ALSA && hasAPI(RtAudio::LINUX_ALSA))
+ 		system = new RtAudio(RtAudio::LINUX_ALSA);
+-	else
+-	if (api == SYS_API_PULSE && hasAPI(RtAudio::LINUX_PULSE))
+-		system = new RtAudio(RtAudio::LINUX_PULSE);
+ #elif defined(_WIN32)
+ 	if (api == SYS_API_DS && hasAPI(RtAudio::WINDOWS_DS))
+ 		system = new RtAudio(RtAudio::WINDOWS_DS);
