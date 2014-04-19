@@ -1,5 +1,5 @@
-02-hack_color.patch
-00-no_pulse_audio.patch
-00-rtmidi_source.patch
-01-rtmidi_static.patch
-03-midi_name.patch
+#02-hack_color.patch
+#00-no_pulse_audio.patch
+#00-rtmidi_source.patch
+#01-rtmidi_static.patch
+#03-midi_name.patch

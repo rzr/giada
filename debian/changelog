@@ -1,3 +1,9 @@
+giada (0.0.0-0~rzr1) UNRELEASED; urgency=medium
+
+  * Non-maintainer upload.
+
+ -- Philippe Coval <rzr@gna.org>  Sat, 19 Apr 2014 10:40:59 +0200
+
 giada (0.8.2-0tstudio1) wheezy; urgency=low
 
   * New upstream release.
