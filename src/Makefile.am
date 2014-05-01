@@ -7,9 +7,10 @@ AUTOMAKE_OPTIONS = foreign
 # This is a workaround, fixes needed.
 
 if WINDOWS
-AM_CXXFLAGS = -Wall -pedantic
+AM_CXXFLAGS = -Wall -pedantic ${CXXFLAGS}
 else
-AM_CXXFLAGS = -Wall -pedantic -Werror
+AM_CXXFLAGS = -Wall -pedantic -Werror ${CXXFLAGS} \
+  -DRtMidiError=RtError
 endif
 
 bin_PROGRAMS = giada
